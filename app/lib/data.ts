@@ -8,12 +8,22 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
+import { resolve } from 'path';
 
 export async function fetchRevenue() {
+
+  // DEBUG
+  console.log('Fetching revenue data');
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const client = await createClient();
   await client.connect();
   try {
     const data = await client.sql<Revenue>`SELECT * FROM revenue`;
+
+    // DEBUG
+    console.log('Data fetch completed after 3 seconds');
+
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
